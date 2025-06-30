@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->bigInteger('product_price')->unsigned();
             $table->integer('product_stock')->default(0);
+            $table->string('product_image')->nullable();
             $table->timestamps();
         });
     }

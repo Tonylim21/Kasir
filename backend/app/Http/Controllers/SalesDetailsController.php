@@ -10,7 +10,7 @@ class SalesDetailsController extends Controller
     // Ringkasan Semua Daftar Transaksi
     public function index() {
         // Eager load relasi 'user' untuk menampilkan nama kasir
-        $sales = Sale::with('user:id,name,username')->latest()->paginate(15);
+        $sales = Sale::with('user:user_id,name,username', 'details.product')->latest()->paginate(15);
 
         return response()->json($sales);
     }
@@ -18,7 +18,7 @@ class SalesDetailsController extends Controller
     // Lihat Detail Satu Transaksi
     public function show ($id) {
         // Eager load semua relasi yang dibutuhkan
-        $sale = Sale::with(['user:id,name,username', 'details.product'])->find($id);
+        $sale = Sale::with(['user:user_id,name,username', 'details.product'])->find($id);
 
         if (!$sale) {
             return response()->json(['message' => 'Transaction Not Found'], 404);

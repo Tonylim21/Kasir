@@ -14,63 +14,53 @@ class SalesController extends Controller
 {
     // Melakukan Transaksi
     public function store(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'products' => 'required|array',
+        $request->validate([
+            'products' => 'required|array|min:1',
             'products.*.product_id' => 'required|integer|exists:products,product_id',
             'products.*.quantity' => 'required|integer|min:1',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $totalAmount = 0;
-        $sale = null;
-
         // DB Transaction
         try {
-            DB::transaction(function () use ($request, &$totalAmount, &$sale) {
+            DB::transaction(function () use ($request, &$sale) {
                 // 1. Record Penjualan Utama
                 $sale = Sale::create([
                     'user_id' => Auth::id(),
                     'sale_date' => now(),
-                    'total_amount' => 0, // Akan diupdate nanti
+                    'sale_total_amount' => 0, // Akan diupdate nanti
                 ]);
 
-                foreach ($request->products as $item) {
-                    $product = Product::find($item['product_id']);
+                $total = 0;
 
-                    // Cek Letersediaan Stok
-                    if ($product->stock < $item['quantity']) {
+                foreach ($request->products as $item) {
+                    $product = Product::lockForUpdate()->findOrFail($item['product_id']);
+
+                    // 2. Cek Ketersediaan Stok
+                    if ($product->product_stock < $item['quantity']) {
                         // Jika Stok Tidak Cukup, Batalkan Transaksi
-                        throw new \Exception("Stock for product {$product->product_name} is insufficient.");
+                        throw new \Exception("Stock for {$product->product_name} is insufficient.");
                     }
 
-                    $subTotal = $product->product_price * $item['quantity'];
-                    $totalAmount += $subTotal;
+                    $sub = $product->product_price * $item['quantity'];
+                    $total += $sub;
 
-                    // 2. Buat Detail Penjualan
+                    // 3. Buat Detail Penjualan
                     SaleDetails::create([
-                        'sale_id' => $sale->id,
-                        'product_id' => $product->id,
+                        'sale_id' => $sale->sale_id,
+                        'product_id' => $product->product_id,
                         'quantity' => $item['quantity'],
-                        'sub_total' => $subTotal,
+                        'sub_total' => $sub,
                     ]);
 
-                    // 3. Kurangi stok produk
-                    $product->decrement('stock', $item['quantity']);
+                    // 4. Kurangi stok produk
+                    $product->decrement('product_stock', $item['quantity']);
                 }
 
                 // 4. Update Total Amount di Record Penjualan Utama
-                $sale->update(['sale_total_amount' => $totalAmount]);
+                $sale->update(['sale_total_amount' => $total]);
             });
 
-            if (!$sale) {
-                return response()->json(['message' => 'Transaction Failed: Sale Could Not Be Created!'], 500);
-            }
-
-            // Load relasi untuk respons JSON
-            $sale->load('details.product');
+            $sale->load('details.product','user');
 
             return response()->json([
                 'message' => 'Transaction Successful',
@@ -78,7 +68,9 @@ class SalesController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Transaction Failed: ' . $e->getMessage()], 400);
+            return response()->json([
+                'message' => 'Transaction Failed: ' . $e->getMessage()
+            ], 400);
         }
     }
 }

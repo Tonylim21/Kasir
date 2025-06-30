@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -20,10 +21,16 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'product_price' => 'required|integer|min:0',
             'product_stock' => 'required|integer|min:0',
+            'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        }
+
+        $image_path = null;
+        if ($request->hasFile('product_image')) {
+            $image_path = $request->file('product_image')->store('products', 'public');
         }
 
         $product = Product::create($request->all());
@@ -40,18 +47,33 @@ class ProductController extends Controller
     }
 
     // Update Product (Admin)
-    public function update(Request $request, Product $product) {
+    public function update(Request $request, $id) {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['message' => 'Product Not Found!'], 404);
+        }
+
         $validator = Validator::make($request->all(), [
             'product_name' => 'string|max:255',
             'product_price' => 'integer|min:0',
             'product_stock' => 'integer|min:0',
+            'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        $product->update($request->all());
+        $product->fill($request->except('product_image'));
+
+        if ($request->hasFile('product_image')) {
+            if ($product->product_image) {
+                Storage::disk('public')->delete($product->product_image);
+            }
+            $product->product_image = $request->file('product_image')->store('products', 'public');
+        }
+
+        $product->save();
 
         return response()->json([
             'message' => 'Product updated successfully',
@@ -61,7 +83,12 @@ class ProductController extends Controller
 
     // Hapus Product (Admin)
     public function destroy(Product $product) {
+        if ($product->product_image) {
+            Storage::disk('public')->delete($product->product_image);
+        }
+
         $product->delete();
-        return response()->json(['message' => 'Product Deleted Successfully!']);
+
+        return response()->json(['message' => 'Product Deleted Successfully!'], 200);
     }
 }

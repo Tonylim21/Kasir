@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnDelete();
             $table->timestamp('sale_date')->useCurrent();
-            $table->bigInteger('sale_total_amount')->unsigned();
+            $table->integer('sale_total_amount')->default(0);
             $table->timestamps();
         });
     }

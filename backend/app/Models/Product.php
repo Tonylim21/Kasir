@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -14,9 +15,18 @@ class Product extends Model
         'product_name',
         'product_price',
         'product_stock',
+        'product_image',
     ];
 
-    // public function saleDetails() {
-    //     return $this->hasMany(SaleDetails::class, 'product_id');
-    // }
+    public function getRouteKeyName() {
+        return 'product_id';
+    }
+
+    protected $appends = ['product_image_url'];
+    public function getProductImageUrlAttribute() {
+        if ($this->product_image) {
+            return asset('storage/' .$this->product_image);
+        }
+        return 'https://via.placeholder.com/150';
+    }
 }

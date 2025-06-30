@@ -19,7 +19,7 @@ class Sale extends Model
         return $this->hasMany(SaleDetails::class, 'sale_id'); 
     }
 
-    public function cashier()  {
+    public function user()  {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
