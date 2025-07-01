@@ -1,0 +1,123 @@
+.pageContainer {
+  padding: 20px;
+  width: 100%;
+}
+
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-end;
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: column;
+}
+
+.datePicker label {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.datePicker input {
+  padding: 8px;
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 4px;
+  color: #f0f0f0;
+}
+
+.exportButton {
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  height: fit-content;
+}
+
+.exportButton:hover {
+  background-color: #157347;
+}
+
+.exportButton:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.transactionCard {
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.cardHeader:hover {
+  background-color: #3a3a3a;
+}
+
+.headerInfo, .headerSummary {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.trxId {
+  font-weight: bold;
+}
+
+.trxDate, .trxUser {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.trxTotal {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.cardDetails {
+  padding: 20px;
+  background-color: #222;
+  border-top: 1px solid #444;
+}
+
+.detailsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detailsTable th, .detailsTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}

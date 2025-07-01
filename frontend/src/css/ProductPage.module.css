@@ -1,23 +1,18 @@
-/* src/css/ProductPage.module.css */
-
 .container {
   padding: 20px;
   width: 100%;
 }
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
-
 .header h1 {
   margin: 0;
 }
-
 .addButton {
-  background-color: #007bff;
+  background-color: #0d6efd;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -27,35 +22,29 @@
   font-weight: bold;
 }
 .addButton:hover {
-  background-color: #0056b3;
+  background-color: #0b5ed7;
 }
-
 .productTable {
   width: 100%;
   border-collapse: collapse;
   background-color: #2c2c2c;
   color: #f0f0f0;
 }
-
 .productTable th, .productTable td {
   border: 1px solid #444;
   padding: 12px 15px;
   text-align: left;
 }
-
 .productTable th {
   background-color: #3a3a3a;
   font-weight: bold;
 }
-
 .productTable tbody tr:nth-child(even) {
   background-color: #333;
 }
-
 .productTable tbody tr:hover {
   background-color: #4a4a4a;
 }
-
 .editButton, .deleteButton {
   border: none;
   padding: 8px 12px;
@@ -64,38 +53,30 @@
   color: white;
   margin-right: 8px;
 }
-
 .editButton {
-  background-color: #ffc107; /* Kuning */
+  background-color: #ffc107;
 }
 .editButton:hover {
   background-color: #d39e00;
 }
-
 .deleteButton {
-  background-color: #dc3545; /* Merah */
+  background-color: #dc3545;
 }
 .deleteButton:hover {
-  background-color: #c82333;
+  background-color: #b02a37;
 }
-/* ... (style yang sudah ada sebelumnya) ... */
-
-/* Style untuk Form di dalam Modal */
 .form h2 {
   margin-top: 0;
   margin-bottom: 1.5rem;
 }
-
 .formGroup {
   margin-bottom: 1rem;
 }
-
 .formGroup label {
   display: block;
   margin-bottom: 0.5rem;
   color: #ccc;
 }
-
 .formGroup input {
   width: 100%;
   padding: 0.75rem;
@@ -105,14 +86,12 @@
   color: #f0f0f0;
   box-sizing: border-box;
 }
-
 .formActions {
   margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
 }
-
 .submitButton, .cancelButton {
   border: none;
   padding: 10px 20px;
@@ -121,19 +100,31 @@
   font-size: 1rem;
   font-weight: bold;
 }
-
 .submitButton {
-  background-color: #007bff;
+  background-color: #198754;
   color: white;
 }
 .submitButton:hover {
-  background-color: #0056b3;
+  background-color: #157347;
 }
-
 .cancelButton {
   background-color: #6c757d;
   color: white;
 }
 .cancelButton:hover {
   background-color: #5a6268;
+}
+
+.productImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.validationError {
+  color: #ffcdd2;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
 }

@@ -1,8 +1,6 @@
-// src/pages/LoginPage.jsx
-
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from '../css/LoginPage.module.css';
 
 const LoginPage = () => {
@@ -20,7 +18,7 @@ const LoginPage = () => {
       navigate('/dashboard');
     } catch (err) {
       setError('Username atau password salah. Coba lagi.');
-      console.error(err);
+      console.error("Login failed:", err);
     }
   };
 
@@ -29,7 +27,6 @@ const LoginPage = () => {
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <h2>Login Kasir</h2>
-          
           <div className={styles.formGroup}>
             <label htmlFor="username">Username</label>
             <input
@@ -40,7 +37,6 @@ const LoginPage = () => {
               required
             />
           </div>
-          
           <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
             <input
@@ -51,9 +47,7 @@ const LoginPage = () => {
               required
             />
           </div>
-          
           {error && <p className={styles.error}>{error}</p>}
-
           <button type="submit" className={styles.submitButton}>
             Login
           </button>

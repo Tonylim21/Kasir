@@ -1,4 +1,3 @@
-// src/components/ProtectedRoute.jsx
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -12,12 +11,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
 
   const isAllowed = allowedRoles.includes(user.role);
 
-  if (!isAllowed) {
-
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <Outlet />;
+  return isAllowed ? <Outlet /> : <Navigate to="/dashboard" replace />;
 };
 
 export default ProtectedRoute;

@@ -1,24 +1,20 @@
-/* src/pages/LoginPage.module.css */
-
-/* Wadah utama yang memenuhi seluruh layar dan menengahkan konten */
 .loginPage {
   display: flex;
-  justify-content: center; /* Menengahkan secara horizontal */
-  align-items: center;    /* Menengahkan secara vertikal */
-  min-height: 100vh;      /* Tinggi minimal sama dengan tinggi layar */
-  background-color: #212121; /* Warna background gelap seperti di screenshot */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #212121;
 }
 
-/* Kotak form login itu sendiri */
 .formContainer {
   background-color: #333;
   padding: 2rem;
   border-radius: 8px;
   border: 1px solid #555;
   width: 100%;
-  max-width: 400px; /* Lebar maksimum form */
+  max-width: 400px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  color: #f0f0f0; /* Warna teks terang */
+  color: #f0f0f0;
 }
 
 .formContainer h2 {
@@ -28,7 +24,6 @@
   color: #ffffff;
 }
 
-/* Styling untuk grup label dan input */
 .formGroup {
   margin-bottom: 1rem;
 }
@@ -47,7 +42,7 @@
   border: 1px solid #666;
   border-radius: 4px;
   color: #f0f0f0;
-  box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+  box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -57,11 +52,10 @@
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
-/* Styling untuk tombol login */
 .submitButton {
   width: 100%;
   padding: 0.75rem;
-  background-color: #007bff; /* Warna biru */
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -73,11 +67,12 @@
 }
 
 .submitButton:hover {
-  background-color: #0056b3; /* Warna biru lebih gelap saat di-hover */
+  background-color: #0056b3;
 }
 
 .error {
   color: #ff4d4d;
   text-align: center;
   margin-top: 1rem;
+  min-height: 1.2em; 
 }
