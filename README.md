@@ -2,7 +2,7 @@
 
 > Backend API untuk aplikasi kasir sederhana yang dibangun menggunakan Laravel 10. Proyek ini dibuat sebagai Ujian Akhir Semester dan mencakup fungsionalitas dasar sistem kasir, termasuk manajemen produk, transaksi penjualan, serta sistem otentikasi dengan peran (role-based).
 
-![Contoh Penggunaan API di Postman](https://i.imgur.com/c9ec67.png)
+![Contoh Penggunaan API di Postman] <img src="api.png">
 
 ---
 ## Arsitektur Proyek 🏗️
@@ -11,8 +11,6 @@ Proyek ini menggunakan arsitektur terpisah (*decoupled*):
 
 * **Backend (Folder `/`)**: Sebuah REST API yang dibuat dengan Laravel 10. Bertugas untuk mengelola semua logika bisnis, interaksi database, otentikasi, dan otorisasi.
 * **Frontend (Folder `/frontend`)**: Sebuah *Single Page Application* (SPA) yang dibuat dengan React.js (menggunakan Vite). Bertugas untuk menampilkan antarmuka pengguna (UI) dan berinteraksi dengan Backend API.
-
----
 
 ---
 
